@@ -1,0 +1,71 @@
+# ===== 依赖 =====
+node_modules/
+jspm_packages/
+.pnpm-store/
+bower_components/
+
+# ===== 构建产物 =====
+dist/
+build/
+out/
+*.tsbuildinfo
+.cache/
+
+# ===== 环境变量与密钥（重要：绝不提交） =====
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p12
+*.pfx
+secrets.json
+secrets.yml
+credentials.json
+.credentials.yaml
+
+# DeepSeek / OpenAI 风格的密钥兜底
+*apikey*
+*api-key*
+*_secret.*
+
+# ===== 本地配置与个人路径 =====
+config.local.yml
+config.local.yaml
+*.local.yml
+.local/
+
+# ===== 编辑器与 IDE =====
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+*~
+
+# ===== 操作系统 =====
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ===== Office 临时文件（Word 打开 .docx 时生成的锁文件） =====
+~$*.docx
+~$*.xlsx
+~$*.pptx
+
+# ===== 日志与临时文件 =====
+*.log
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+tmp/
+temp/
+*.tmp
+
+# ===== DSH 运行时个人数据（不属于本项目） =====
+profiles/
+sessions/
+storages/
+attachments/
+llm-deepseek/
+dsh-runtimes/

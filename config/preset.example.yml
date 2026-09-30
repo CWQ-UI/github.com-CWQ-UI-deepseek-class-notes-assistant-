@@ -1,0 +1,76 @@
+# ============================================================
+#  课堂纪要助手 · Preset 配置示例（脱敏版）
+# ============================================================
+#  这是可直接落地的最小可用配置。它应被写入 DSH 的 profile patch 层：
+#
+#      Windows :  %USERPROFILE%\.dsh\profiles\<profile>\cordis.patch.yml
+#      macOS   :  ~/.dsh/profiles/<profile>/cordis.patch.yml
+#      Linux   :  ~/.dsh/profiles/<profile>/cordis.patch.yml
+#
+#  其中 <profile> 是你的 profile 名（例如 web 或 desktop）。
+#  该 patch 层会在所有 bundle 层之后应用，因此不会覆盖内置的 standard 预设。
+#
+#  ⚠️ 本文件不含任何 API Key。模型凭据由 DSH 自身的账号设置管理，
+#     不写进 preset 配置，请勿把密钥粘贴到本文件里。
+# ============================================================
+
+# ===== 第 1 步：插入 preset 声明（最小 2 行工具集） =====
+- insert:
+    - id: preset-class-notes-organizer
+      name: "@deepseek-ai/dsh-agent-preset"
+      config:
+        id: class-notes-organizer
+        name: 课堂纪要助手
+        description: 将课堂录音转写的纯文本整理成结构化课堂纪要
+        order: 20
+        plugins:
+          # 子行 1：persona —— 挂载本预设专属的系统提示词
+          - id: persona
+            name: "@deepseek-ai/dsh-persona"
+            config:
+              # 完整提示词见 prompts/persona-prefix.md，逐字粘贴到这里
+              prefix: |-
+                你是「课堂纪要助手」，专门把课堂录音的转写纯文本整理成结构化、可复习的课堂纪要。
+                （…… 此处粘贴 prompts/persona-prefix.md 的完整正文 ……）
+              complete: true              # 该 prefix 成为唯一 system prompt 段落
+              includeRuntimeContext: false # 不注入动态运行时上下文快照
+          # 子行 2：tool-fs —— 提供基础文件读写能力
+          - id: tool-fs
+            name: "@deepseek-ai/dsh-tool-fs"
+
+# ===== 第 2 步：把新预设设为默认（可选） =====
+# 省略这一段时，预设仍会出现在选择器中，只是不会自动选中。
+- id: agent-preset-registry
+  name: "@deepseek-ai/dsh-agent-preset-registry"
+  config:
+    default: standard
+    selectedDefault: class-notes-organizer
+
+
+# ============================================================
+#  设计说明
+# ============================================================
+#
+#  为什么工具集只有 2 行？
+#    standard 基线为 24 项子行（含浏览器、子 Agent、workflow、goal、plan、
+#    shell、上下文压缩等）。本项目只保留完成任务所必需的最小能力集：
+#      persona   → 专属提示词
+#      tool-fs   → read / write / edit / glob
+#    净结果：24 项 → 2 项。
+#
+#  为什么不直接改内置 standard？
+#    内置 preset 属于 DSH 发行包，升级会被覆盖；且 registry 的设计是
+#    "A user override replaces the complete child list" —— 覆盖会连带丢失
+#    官方后续新增的能力。因此本项目以「新增一个独立 preset」的方式落地，
+#    内置的 standard / ptc / minimal 全部保持原样，回滚只需删除本文件的
+#    insert 块，无残留状态。
+#
+#  已知取舍：
+#    1. 本 preset 是 standard 基线的一份独立副本，DSH 升级时不会自动合并新能力。
+#    2. 移除了上下文压缩，超长转写可能触及上下文上限。
+#    3. 移除了 shell，本 preset 不能执行命令。
+#
+#  生效条件：
+#    preset 定义在启动时读取。写入后若 GUI 中未出现该预设，重启 DeepSeek Orb 即可。
+#    另注意：已经存在的会话不会切换预设，需要新建会话生效。
+# ============================================================

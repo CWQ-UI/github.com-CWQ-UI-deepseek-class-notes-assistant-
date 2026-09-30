@@ -1,0 +1,31 @@
+# 统一换行符，避免 Windows 检出后整个仓库显示为「已修改」
+* text=auto eol=lf
+
+# 明确的文本类型
+*.md      text eol=lf
+*.yml     text eol=lf
+*.yaml    text eol=lf
+*.json    text eol=lf
+*.txt     text eol=lf
+*.js      text eol=lf
+*.mjs     text eol=lf
+*.ts      text eol=lf
+
+# Windows 批处理必须是 CRLF
+*.cmd     text eol=crlf
+*.bat     text eol=crlf
+
+# 二进制类型（不做任何转换，也不参与 diff）
+*.png     binary
+*.jpg     binary
+*.jpeg    binary
+*.gif     binary
+*.webp    binary
+*.ico     binary
+*.docx    binary
+*.xlsx    binary
+*.pptx    binary
+
+# 语言统计：把文档类当成文档，不计入代码行数
+docs/**   linguist-documentation
+*.md      linguist-documentation
