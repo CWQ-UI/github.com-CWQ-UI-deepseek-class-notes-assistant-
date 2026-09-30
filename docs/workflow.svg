@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 1200" width="1300" height="1200"
+     font-family="'Microsoft YaHei','微软雅黑','Segoe UI',sans-serif">
+  <defs>
+    <marker id="arw" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#475569"/>
+    </marker>
+    <marker id="arwR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#DC2626"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1300" height="1200" fill="#FFFFFF"/>
+
+  <!-- 标题 -->
+  <text x="60" y="46" font-size="27" font-weight="bold" fill="#0F172A">课堂纪要助手 · 工作流</text>
+  <text x="60" y="73" font-size="14" fill="#64748B">class-notes-organizer preset · 基于 DeepSeek Harness 框架 · 完整流程 = 单次 LLM 调用</text>
+
+  <!-- ================= 主流程 ================= -->
+
+  <!-- ① 用户输入 -->
+  <rect x="200" y="90" width="480" height="96" rx="11" fill="#EEF2FF" stroke="#4F46E5" stroke-width="2"/>
+  <text x="440" y="122" text-anchor="middle" font-size="17" font-weight="bold" fill="#1E1B4B">① 用户输入</text>
+  <text x="440" y="148" text-anchor="middle" font-size="14" fill="#312E81">课堂录音 ASR 转写纯文本</text>
+  <text x="440" y="170" text-anchor="middle" font-size="12" fill="#64748B">同音字错认 · 口语填充词 · 语序颠倒 · 师生对话交错</text>
+
+  <!-- 箭头 1 -->
+  <line x1="440" y1="186" x2="440" y2="216" stroke="#475569" stroke-width="2" marker-end="url(#arw)"/>
+
+  <!-- ② 单次模型推理 -->
+  <rect x="200" y="220" width="480" height="90" rx="11" fill="#F0FDF4" stroke="#16A34A" stroke-width="2"/>
+  <text x="440" y="252" text-anchor="middle" font-size="17" font-weight="bold" fill="#052E16">② 单次模型推理</text>
+  <text x="440" y="276" text-anchor="middle" font-size="14" fill="#166534">persona 系统提示词（完整系统提示词）</text>
+  <text x="440" y="296" text-anchor="middle" font-size="12" fill="#64748B">一次调用内同时完成清洗、重组与结构化</text>
+
+  <!-- 箭头 2 -->
+  <line x1="440" y1="310" x2="440" y2="366" stroke="#475569" stroke-width="2" marker-end="url(#arw)"/>
+
+  <!-- ③ 结构化输出 -->
+  <rect x="200" y="370" width="480" height="110" rx="11" fill="#F0FDF4" stroke="#16A34A" stroke-width="2"/>
+  <text x="440" y="404" text-anchor="middle" font-size="17" font-weight="bold" fill="#052E16">③ 结构化输出（固定四段）</text>
+  <text x="440" y="432" text-anchor="middle" font-size="14" fill="#166534">课堂主题 · 核心内容 · 重点与考点 · 待办与作业</text>
+  <text x="440" y="458" text-anchor="middle" font-size="12" fill="#64748B">全部 Markdown 格式</text>
+
+  <!-- 箭头 3：进入判定（空间不足以放标签，标签见菱形内） -->
+  <line x1="440" y1="480" x2="440" y2="546" stroke="#475569" stroke-width="2" marker-end="url(#arw)"/>
+
+  <!-- ④ 判定菱形 -->
+  <polygon points="440,550 610,620 440,690 270,620" fill="#FFFBEB" stroke="#D97706" stroke-width="2"/>
+  <text x="440" y="606" text-anchor="middle" font-size="15" font-weight="bold" fill="#78350F">④ 质量校验</text>
+  <text x="440" y="629" text-anchor="middle" font-size="13" fill="#92400E">能否支撑「核心内容」</text>
+  <text x="440" y="648" text-anchor="middle" font-size="13" fill="#92400E">至少 2 个实质知识点？</text>
+
+  <!-- 箭头：是 -->
+  <line x1="440" y1="690" x2="440" y2="756" stroke="#475569" stroke-width="2" marker-end="url(#arw)"/>
+  <text x="454" y="728" font-size="13" font-weight="bold" fill="#15803D">是</text>
+
+  <!-- 箭头：否（兜底分支） -->
+  <path d="M270,620 L120,620 L120,900 L200,900" fill="none" stroke="#DC2626" stroke-width="2"
+        stroke-dasharray="7 4" marker-end="url(#arwR)"/>
+  <text x="150" y="600" font-size="13" font-weight="bold" fill="#DC2626">否</text>
+
+  <!-- 是：输出结果 -->
+  <rect x="200" y="760" width="480" height="104" rx="11" fill="#DCFCE7" stroke="#15803D" stroke-width="2"/>
+  <text x="440" y="796" text-anchor="middle" font-size="17" font-weight="bold" fill="#052E16">✅ 输出课堂纪要</text>
+  <text x="440" y="822" text-anchor="middle" font-size="14" fill="#14532D">可直接用于复习的结构化纪要</text>
+  <text x="440" y="846" text-anchor="middle" font-size="12" fill="#64748B">四段结构 Markdown · 无前言无元评论</text>
+
+  <!-- 否：兜底 -->
+  <rect x="200" y="870" width="480" height="170" rx="11" fill="#FEF2F2" stroke="#DC2626" stroke-width="2"/>
+  <text x="440" y="904" text-anchor="middle" font-size="17" font-weight="bold" fill="#7F1D1D">⚠️ 兜底：信息不足处理</text>
+  <text x="224" y="932" font-size="13.5" fill="#7F1D1D">① 明确说明：现有内容无法整理成结构化纪要</text>
+  <text x="224" y="957" font-size="13.5" fill="#7F1D1D">② 逐条列出缺失项：主题 / 知识点 / 强调点 / 作业 / 互动</text>
+  <text x="224" y="982" font-size="13.5" fill="#7F1D1D">③ 追问：提请用户补充更完整的转写文本</text>
+  <text x="224" y="1007" font-size="13.5" font-weight="bold" fill="#991B1B">④ 禁止编造：不虚构知识点、数值、人名、作业要求</text>
+  <text x="224" y="1030" font-size="11.5" fill="#B91C1C">注：最小版预设未挂载 tool-ask-user，此步依赖运行时容错</text>
+
+  <!-- ================= 右侧：prompt 内部规则 ================= -->
+  <rect x="740" y="90" width="500" height="1002" rx="13" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5"/>
+  <rect x="740" y="90" width="500" height="42" rx="13" fill="#E2E8F0"/>
+  <rect x="740" y="118" width="500" height="14" fill="#E2E8F0"/>
+  <text x="990" y="118" text-anchor="middle" font-size="15" font-weight="bold" fill="#334155">Prompts / Persona 内部规则</text>
+
+  <!-- 处理规则 -->
+  <rect x="762" y="150" width="456" height="146" rx="10" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="762" y="150" width="456" height="32" rx="10" fill="#F1F5F9"/>
+  <rect x="762" y="170" width="456" height="12" fill="#F1F5F9"/>
+  <text x="778" y="172" font-size="14" font-weight="bold" fill="#334155">整理规范（prompt 声明的 4 条处理规则）</text>
+  <text x="778" y="204" font-size="13" fill="#334155">① 纠错清洗 — 同音字 / 术语 / 人名 / 数字；删口语</text>
+  <text x="795" y="224" font-size="13" fill="#334155">填充词与重复，只纠错去冗余，不改写原意</text>
+  <text x="778" y="248" font-size="13" fill="#334155">② 结构重组 — 按讲解推进顺序，同一知识点合并</text>
+  <text x="778" y="272" font-size="13" fill="#334155">③ 忠实转写 — 不确定的词保留原文并加「（疑似：…）」</text>
+  <text x="778" y="292" font-size="13" fill="#334155">④ 保留细节 — 定义 / 公式 / 数值 / 步骤 / 举例 / 反例</text>
+
+  <!-- 输出结构 -->
+  <rect x="762" y="312" width="456" height="286" rx="10" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <rect x="762" y="312" width="456" height="32" rx="10" fill="#F1F5F9"/>
+  <rect x="762" y="332" width="456" height="12" fill="#F1F5F9"/>
+  <text x="778" y="334" font-size="14" font-weight="bold" fill="#334155">输出结构判定（prompt 声明的分支）</text>
+  <text x="778" y="366" font-size="13" font-weight="bold" fill="#1E40AF">课堂主题</text>
+  <text x="875" y="366" font-size="13" fill="#334155">一句话点明本节内容；可识别时附课程名 / 章节名</text>
+  <text x="778" y="394" font-size="13" font-weight="bold" fill="#1E40AF">核心内容</text>
+  <text x="875" y="394" font-size="13" fill="#334155">按讲解顺序分点，小标题 + 要点，只写出现过的</text>
+  <text x="778" y="422" font-size="13" font-weight="bold" fill="#1E40AF">重点与考点</text>
+  <text x="875" y="422" font-size="13" fill="#334155">汇总教师强调内容，按固定格式保留原话信号</text>
+  <text x="795" y="446" font-size="12" fill="#64748B">信号词：这个要考 / 考试会考 / 重点 / 必考 / 记住这个 /</text>
+  <text x="795" y="465" font-size="12" fill="#64748B">容易错 / 常考 / 注意 / 划重点 / 这里我要强调</text>
+  <rect x="795" y="478" width="390" height="30" rx="6" fill="#FFFBEB" stroke="#FCD34D"/>
+  <text x="807" y="498" font-size="12.5" fill="#92400E">无信号 → 写「转写中未出现明确的考点信号」，不臆造</text>
+  <rect x="795" y="514" width="390" height="30" rx="6" fill="#F0FDF4" stroke="#86EFAC"/>
+  <text x="807" y="534" font-size="12.5" fill="#166534">有信号 → 加粗 + 教师原话信号，逐条列出</text>
+  <text x="778" y="572" font-size="13" font-weight="bold" fill="#1E40AF">待办与作业</text>
+  <text x="875" y="572" font-size="13" fill="#334155">作业 / 预习 / 提交时间 / 下节课安排；无则写「无」</text>
+
+  <!-- 边界情形 -->
+  <rect x="762" y="618" width="456" height="192" rx="10" fill="#FEF2F2" stroke="#FECACA"/>
+  <rect x="762" y="618" width="456" height="32" rx="10" fill="#FEE2E2"/>
+  <rect x="762" y="638" width="456" height="12" fill="#FEE2E2"/>
+  <text x="778" y="640" font-size="14" font-weight="bold" fill="#991B1B">边界情形判定（信息不足处理）</text>
+  <text x="778" y="672" font-size="13" fill="#7F1D1D">触发条件：输入过短、零碎，或缺少可提炼的实质</text>
+  <text x="795" y="692" font-size="13" fill="#7F1D1D">内容（仅几十字 / 只有片语 / 无完整知识点）</text>
+  <text x="778" y="718" font-size="13" fill="#7F1D1D">要求模型必须做的四件事，见左侧「兜底」节点</text>
+  <text x="778" y="744" font-size="13" fill="#7F1D1D">判断基准：内容不足以支撑「核心内容」至少两个</text>
+  <text x="795" y="764" font-size="13" fill="#7F1D1D">有实质含义的知识点时，即按信息不足处理</text>
+  <text x="778" y="792" font-size="12.5" fill="#991B1B">绝不编造：不得虚构未出现的知识点、数值、人名、</text>
+  <text x="795" y="810" font-size="12.5" fill="#991B1B">作业要求来填补空白</text>
+
+  <!-- 对实现的说明 -->
+  <rect x="762" y="830" width="456" height="130" rx="10" fill="#FFFFFF" stroke="#E2E8F0"/>
+  <text x="778" y="858" font-size="13" font-weight="bold" fill="#334155">与实际实现一致性说明</text>
+  <text x="778" y="884" font-size="12.5" fill="#475569">本图节点与实际配置一一对应：处理规则与输出</text>
+  <text x="795" y="904" font-size="12.5" fill="#475569">结构均取自 prompts/persona-prefix.md 原文。</text>
+  <text x="778" y="928" font-size="12.5" fill="#334155">该 preset 仅挂载 persona + tool-fs，</text>
+  <text x="778" y="947" font-size="12.5" fill="#334155">不存在独立的预处理 / 分诊 / 分路抽取节点。</text>
+
+  <!-- 图例 -->
+  <rect x="60" y="1104" width="14" height="14" rx="3" fill="#EEF2FF" stroke="#4F46E5"/>
+  <text x="82" y="1116" font-size="12.5" fill="#475569">输入</text>
+  <rect x="150" y="1104" width="14" height="14" rx="3" fill="#F0FDF4" stroke="#16A34A"/>
+  <text x="172" y="1116" font-size="12.5" fill="#475569">处理步骤</text>
+  <polygon points="272,1102 285,1111 272,1120 259,1111" fill="#FFFBEB" stroke="#D97706"/>
+  <text x="293" y="1116" font-size="12.5" fill="#475569">分支判断</text>
+  <rect x="381" y="1104" width="14" height="14" rx="3" fill="#DCFCE7" stroke="#15803D"/>
+  <text x="403" y="1116" font-size="12.5" fill="#475569">正常输出</text>
+  <rect x="493" y="1104" width="14" height="14" rx="3" fill="#FEF2F2" stroke="#DC2626"/>
+  <text x="515" y="1116" font-size="12.5" fill="#475569">兜底分支</text>
+  <text x="1240" y="1116" text-anchor="end" font-size="12" fill="#94A3B8">workflow.svg · 课堂纪要助手</text>
+</svg>

@@ -12,6 +12,7 @@
 
 - [项目简介](#项目简介)
 - [功能说明](#功能说明)
+- [工作流](#工作流)
 - [效果示例](#效果示例)
 - [技术架构](#技术架构)
 - [如何运行](#如何运行)
@@ -42,6 +43,21 @@
 | **师生互动压缩** | 问答不逐句复述，合并为知识点并标注「提问（生）→ 解答（师）」；点名、答到、维持纪律等一律省略 |
 | **忠实转写** | 不确定的词保留原文并加「（疑似：…）」，不做猜测式改写；定义、公式、数值、步骤、举例、反例都保留，不做概括性丢弃 |
 | **信息不足保护** | 内容不足以支撑至少两个实质知识点时，明确声明无法整理，逐条列出缺失项，**禁止编造**知识点、数值、人名、作业要求 |
+
+## 工作流
+
+![课堂纪要助手的实际工作流](docs/workflow.svg)
+
+完整流程就是**一次 LLM 调用**：原始转写 → persona 提示词（内含 4 条处理规则）→ 固定四段输出 → 信息充足性判断 → 正常输出或兜底追问。
+
+> ⚠️ 需要说明的是：本 preset 只挂载 `persona` 与 `tool-fs` 两行插件，**没有**独立的文本预处理、内容分诊、分路抽取或程序化输出校验器。所有「步骤」都是 persona 提示词内声明的处理规范，而不是可观测的独立执行阶段。详见上方图表。
+
+| 文件 | 说明 |
+|---|---|
+| [`docs/workflow.svg`](docs/workflow.svg) · [`docs/workflow.png`](docs/workflow.png) | 精修版工作流图（纵向 + Prompt 规则面板），PNG 为 2 倍分辨率 |
+| [`docs/workflow.mmd`](docs/workflow.mmd) | Mermaid 源码，便于后续修改 |
+| [`docs/workflow-mermaid.svg`](docs/workflow-mermaid.svg) | 由 `.mmd` 渲染的横向版本，适合放进 PPT |
+| [`docs/workflow.md`](docs/workflow.md) | 工作流说明：节点与真实实现的对应关系、与原始需求的偏差、重新渲染步骤 |
 
 ## 效果示例
 
@@ -196,6 +212,10 @@ class-notes-agent/
 │   └── preset.example.yml             # ★ Preset 配置示例（脱敏，含逐段注释与设计说明）
 │
 └── docs/
+    ├── workflow.md                    # 工作流说明 + 与真实实现的对应关系
+    ├── workflow.svg / workflow.png     # 精修版工作流图（PNG 2x）
+    ├── workflow.mmd                    # Mermaid 源码（可编辑）
+    ├── workflow-mermaid.svg / .png     # 由 Mermaid 渲染的横向版本
     ├── design.md                      # 架构设计稿：Preset 格式判定、基线 24 项处置表、
     │                                  #   影响面与回滚、故障排查记录
     ├── test-report.md                 # 测试报告：L1 运行时装载 / L2 提示词行为 / L3 端到端

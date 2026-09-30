@@ -1,0 +1,37 @@
+%%{init: {"theme": "base", "themeVariables": {"fontSize": "14px"}, "flowchart": {"htmlLabels": true, "wrappingWidth": 300, "useMaxWidth": false}} }%%
+flowchart LR
+
+    A["① 用户输入<br/>课堂录音 ASR 转写纯文本<br/><i>同音字错认 / 口语填充词 / 语序颠倒 / 师生对话交错</i>"]
+
+    B["② 单次模型推理<br/>persona 系统提示词<br/><i>完整流程 = 一次 LLM 调用<br/>没有独立的预处理或分诊步骤</i>"]
+
+    R["<b>Persona 内部处理规则（4 条）</b><br/>1. 纠错清洗 — 同音字 / 术语 / 人名 / 数字；删口语填充词与重复，不改写原意<br/>2. 结构重组 — 按讲解推进顺序，同一知识点合并到一处<br/>3. 忠实转写 — 不确定的词保留原文并加「（疑似：…）」<br/>4. 保留细节 — 定义 / 公式 / 数值 / 步骤 / 分类 / 举例 / 反例"]
+
+    C["③ 结构化输出（固定四段）<br/>课堂主题 · 核心内容 · 重点与考点 · 待办与作业<br/><i>全部 Markdown 格式</i>"]
+
+    D{"④ 质量校验<br/>能否支撑「核心内容」<br/>至少 2 个实质知识点？"}
+
+    E["✅ 输出课堂纪要<br/>可直接用于复习的结构化纪要<br/><i>四段结构 Markdown · 无前言无元评论</i>"]
+
+    F["⚠️ 兜底：信息不足处理<br/>① 明确说明无法整理成结构化纪要<br/>② 逐条列出缺失项（主题 / 知识点 / 强调点 / 作业 / 互动）<br/>③ 追问：提请用户补充更完整的转写<br/>④ <b>禁止编造</b>：不虚构知识点、数值、人名、作业要求<br/><i>注：最小版预设未挂载 tool-ask-user，此步依赖运行时容错</i>"]
+
+    A --> B
+    B --> R
+    R --> C
+    C --> D
+    D -- "是" --> E
+    D -- "否" --> F
+
+    classDef io         fill:#EEF2FF,stroke:#4F46E5,stroke-width:2px,color:#1E1B4B
+    classDef proc       fill:#F0FDF4,stroke:#16A34A,stroke-width:2px,color:#052E16
+    classDef rule       fill:#FEFCE8,stroke:#CA8A04,stroke-width:1.5px,color:#422006
+    classDef decision   fill:#FFFBEB,stroke:#D97706,stroke-width:2px,color:#451A03
+    classDef ok         fill:#DCFCE7,stroke:#15803D,stroke-width:2px,color:#052E16
+    classDef warn       fill:#FEF2F2,stroke:#DC2626,stroke-width:2px,color:#450A0A
+
+    class A io
+    class B,C proc
+    class R rule
+    class D decision
+    class E ok
+    class F warn
